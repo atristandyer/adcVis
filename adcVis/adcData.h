@@ -1,5 +1,23 @@
+/** @file */
+
 #ifndef ADCDATA_H
 #define ADCDATA_H
+
+#include <stdio.h>
+
+/** QT_DEBUG Macro used for displaying debug output
+ *
+ * This macro will only print output if compiling/running from the Debug version of the code.
+ * It accepts either a single string to output or a formatted string followed by a list of
+ * values to print.
+ *
+ */
+#ifdef QT_DEBUG
+#define DEBUG(format, ...) fprintf(stdout, format, ## __VA_ARGS__)
+#else
+#define DEBUG(format, ...) do {} while (0)
+#endif
+
 
 #define EARTH_RADIUS 6378206.4
 

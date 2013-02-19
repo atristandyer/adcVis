@@ -13,11 +13,19 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        MainWindow.cpp
+        MainWindow.cpp \
+    Shaders/GLShader.cpp \
+    OpenGL/GLCamera.cpp \
+    OpenGL/glew.c
 
 HEADERS  += MainWindow.h \
     Shaders/GLShader.h \
-    adcData.h
+    adcData.h \
+    OpenGL/GLCamera.h \
+    GLData.h \
+    OpenGL/wglew.h \
+    OpenGL/glxew.h \
+    OpenGL/glew.h
 
 FORMS    += MainWindow.ui
 
