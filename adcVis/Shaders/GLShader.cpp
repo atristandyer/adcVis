@@ -118,7 +118,20 @@ bool GLShader::UniformsSet()
 }
 
 
-
+/**
+ * @brief GLShader::CompileShaderPart
+ *
+ * This function will be used by the virtual CompileShader() function to compile the various shader
+ * programs (eg. vertex shader, fragment shader, etc.) in the OpenGL context.
+ *
+ * @param source Standard string containing the full source code for the shader
+ *
+ * @param shaderType Specifies the type of shader to be created. Must be one of GL_VERTEX_SHADER,
+ * GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
+ *
+ * @return An unsigned integer value that can be used to reference the compiled shader in the
+ * OpenGL context
+ */
 GLuint GLShader::CompileShaderPart(std::string source, GLenum shaderType)
 {
 	const char *src = source.data();
