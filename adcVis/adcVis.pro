@@ -16,6 +16,10 @@ SOURCES += main.cpp\
         MainWindow.cpp
 
 HEADERS  += MainWindow.h \
-    Shaders/GLShader.h
+    Shaders/GLShader.h \
+    adcData.h
 
 FORMS    += MainWindow.ui
+
+OTHER_FILES += \
+    docConfig
