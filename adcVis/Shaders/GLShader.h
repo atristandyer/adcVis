@@ -29,9 +29,6 @@ class GLShader
 		// Public functions common to all shaders
 		int	Use();
 		void	SetCamera(GLCamera *newCam);
-		bool	IsLoaded();
-		bool	CameraSet();
-		bool	UniformsSet();
 
 
 		/**
@@ -42,10 +39,7 @@ class GLShader
 		 * It is up to the programmer to define the order of the values for the
 		 * particular shader they are creating.
 		 *
-		 *
-		 * Note: enforce loaded == true and cameraSet == true before reading values.
-		 *
-		 * Note: set flag the flag uniformsSet = true after successfully reading in all values.
+		 * Note: set the flag uniformsSet = true after successfully reading in all values.
 		 *
 		 * @param size The number of values in the uniforms array
 		 * @param uniforms An array of uniform values
@@ -56,17 +50,18 @@ class GLShader
 	protected:
 
 		// Variables common to all shaders
-		GLuint		programID;
-		GLCamera	*camera;
+		GLuint		programID;		/**< Integer reference to the compiled program in the OpenGL context */
+		GLCamera	*camera;		/**< Pointer to the camera object that is used to retrieve the Model-View-Projection Matrix */
+		int		numUniforms;		/**< The number of shader uniforms accessible by the user */
 
 		// Source text
-		std::string	vertexShaderSource;
-		std::string	fragmentShaderSource;
+		std::string	vertexShaderSource;	/**< Full source code for the vertex shader */
+		std::string	fragmentShaderSource;	/**< Full source code for the fragment shader */
 
 		// Flags
-		bool	loaded;
-		bool	cameraSet;
-		bool	uniformsSet;
+		bool	loaded;		/**< Set to true after successfully setting programID */
+		bool	cameraSet;	/**< Set to true when the camera pointer has been set */
+		bool	uniformsSet;	/**< Set to true when all user-accessible uniforms have been set to expected values*/
 
 		// Protected Functions
 		GLuint	CompileShaderPart(std::string source, GLenum shaderType);
@@ -87,6 +82,9 @@ class GLShader
 		 * This function, defined in a subclass of GLShader, transfers all appropriate values
 		 * from the shader object to the shader program in the OpenGL context using the
 		 * glGetUniformLocation() and glUniform*() functions.
+		 *
+		 * Note: You must call glUseProgram(programID) to update the uniforms. This is required
+		 * by OpenGL and by the subclassed Shader object as a part of the Use() functionality.
 		 *
 		 */
 		virtual void	UpdateUniforms() = 0;

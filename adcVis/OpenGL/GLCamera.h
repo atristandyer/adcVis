@@ -6,7 +6,9 @@
 
 class GLCamera
 {
+	public:
 
+		Matrix MVPMatrix;
 };
 
 #endif

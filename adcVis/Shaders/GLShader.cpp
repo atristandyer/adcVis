@@ -7,6 +7,7 @@ GLShader::GLShader()
 {
 	programID = 0;
 	camera = 0;
+	numUniforms = 0;
 
 	vertexShaderSource = "";
 	fragmentShaderSource = "";
@@ -34,20 +35,28 @@ GLShader::~GLShader()
  * @brief GLShader::Use Tells the OpenGL context to use this shader program
  *
  * Tells the OpenGL context to use this shader program for all subsequent
- * drawing operations. Updates the uniforms before use by calling UpdateUniforms()
+ * drawing operations.
  *
  * @return 0 if command successfully sent to OpenGL context
  * @return 1 if uniforms have not been set
+ * @return 2 if the shader has not been successfully compiled
+ * @return 3 if the camera object has not been set
  */
 int GLShader::Use()
 {
-	UpdateUniforms();
-	if (uniformsSet)
-	{
-		glUseProgram(programID);
-		return 0;
-	}
-	return 1;
+	if (cameraSet)
+		if (loaded)
+			if (uniformsSet)
+			{
+				UpdateUniforms();
+				return 0;
+			}
+			else
+				return 1;
+		else
+			return 2;
+	else
+		return 3;
 }
 
 
@@ -71,50 +80,6 @@ void GLShader::SetCamera(GLCamera *newCam)
 		cameraSet = true;
 		UpdateUniforms();
 	}
-}
-
-
-/**
- * @brief GLShader::IsLoaded Queries object to see if the shader program has been loaded or not
- *
- * The shader being loaded only guarantees that the shader has successfully compiled in the
- * OpenGL context.
- *
- * @return true if shader program has been loaded
- * @return false if shader program has not been loaded
- */
-bool GLShader::IsLoaded()
-{
-	return loaded;
-}
-
-
-/**
- * @brief GLShader::CameraSet Queries the object to see if the camera pointer has been set
- *
- * The camera being set only guarantees that the pointer to the camera object has been set.
- *
- * @return true if the camera has been set
- * @return false if the camera has not been set
- */
-bool GLShader::CameraSet()
-{
-	return cameraSet;
-}
-
-
-/**
- * @brief GLShader::UniformsSet Queries object to see if the shader uniforms have been set
- *
- * If the uniforms are set, the shader is guaranteed to be compiled with the camera set, and
- * is therefore ready to be used.
- *
- * @return true if the uniforms have been set
- * @return false if the uniforms have not been set
- */
-bool GLShader::UniformsSet()
-{
-	return uniformsSet;
 }
 
 
