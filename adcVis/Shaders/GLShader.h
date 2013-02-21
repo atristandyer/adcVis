@@ -9,7 +9,7 @@
 /**
  * @brief A virtual class that defines the generic behavior of a Shader
  *
- * GLShader is a virtual class that defines the generic behavior of all shaders that
+ * GLShader is an abstract class that defines the generic behavior of all shaders that
  * can be used in the Adcirc Visualization Tool. In order to create a shader that
  * can be used in the program, you must subclass GLShader and define (at a minimum)
  * the SetUniforms(), CompileShader() and UpdateUniforms() functions.
