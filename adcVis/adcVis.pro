@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     Shaders/GLShader.cpp \
     OpenGL/GLCamera.cpp \
     OpenGL/glew.c \
-    Shaders/DefaultShader.cpp
+    Shaders/DefaultShader.cpp \
+    Layers/Layer.cpp
 
 HEADERS  += MainWindow.h \
     Shaders/GLShader.h \
@@ -29,7 +30,8 @@ HEADERS  += MainWindow.h \
     OpenGL/wglew.h \
     OpenGL/glxew.h \
     OpenGL/glew.h \
-    Shaders/DefaultShader.h
+    Shaders/DefaultShader.h \
+    Layers/Layer.h
 
 FORMS    += MainWindow.ui
 
