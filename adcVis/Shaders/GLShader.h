@@ -34,18 +34,26 @@ class GLShader
 		/**
 		 * @brief GLShader::SetUniforms Sets all of the uniform values of a subclassed GLShader
 		 *
-		 * This function takes a list of floating point values and copies them into
-		 * the appropriate variables (the shader uniforms) of the subclassed shader.
-		 * It is up to the programmer to define the order of the values for the
-		 * particular shader they are creating.
+		 * This function takes a UniformColors struct and UniformValues struct, which it
+		 * uses to update all of the variables that are passed to the shader program
+		 * as uniform values. It is up to the programmer to define how the shader will
+		 * interpret the values passed in.
 		 *
-		 * Note: set the flag uniformsSet = true after successfully reading in all values.
+		 * Some general guidelines:
+		 * - Passing in 0 for either parameter means all values in that set do not need to be updated
+		 * - Fill the structs with generic data first (eg. basic color in Color1, minZ/maxZ in Value1/Value2)
+		 * and then fill in with more specialized data
+		 * - A value of -1.0 for a color means the color does not need to be updated
+		 * - A value of -99999.0 for a generic value means the value does not need to be updated
+		 * .
 		 *
-		 * @param size The number of values in the uniforms array
-		 * @param uniforms An array of uniform values
+		 * Note: set the uniformsSet flag to true after successfully reading in all values.
+		 *
+		 * @param colors A UniformColors struct with updated color values
+		 * @param values A UniformValues struct with updated generic values
 		 *
 		 */
-		virtual void SetUniforms(int size, float *uniforms) = 0;
+		virtual void SetUniforms(UniformColors colors, UniformValues values) = 0;
 
 	protected:
 

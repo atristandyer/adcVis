@@ -20,8 +20,24 @@ DefaultShader::DefaultShader()
 
 	uniformsSet = true;
 
-	vertexShaderSource = "";
-	fragmentShaderSource ="";
+	vertexShaderSource = "#version 330\n"
+			     "layout(location=0) in vec4 in_Position;"
+			     "out vec4 ex_Color;"
+			     "uniform mat4 MVPMatrix;"
+			     "uniform vec4 ColorVector;"
+			     "void main(void)"
+			     "{"
+				     "gl_Position = MVPMatrix*in_Position;"
+				     "ex_Color = ColorVector;"
+			     "}";
+
+	fragmentShaderSource = "#version 330\n"
+			       "in vec4 ex_Color;"
+			       "out vec4 out_Color;"
+			       "void main(void)"
+			       "{"
+				       "out_Color = ex_Color;"
+			       "}";
 }
 
 
@@ -31,20 +47,23 @@ DefaultShader::DefaultShader()
  * This function is called by the user in order to change the color used by the shader
  * in all subsequent OpenGL drawing operations.
  *
- * @param size The number of values in the uniforms array. Must be equal to 4.
- * @param uniforms Must be an array of 4 floats.
+ * Only Color1 in the UniformColors struct is used.
+ *
+ * @param colors The UniformColors struct with updated values
+ * @param values Ignored
  */
-void DefaultShader::SetUniforms(int size, float *uniforms)
+void DefaultShader::SetUniforms(UniformColors colors, UniformValues values)
 {
-	if (size == numUniforms)
+	if (colors != 0)
 	{
-		rgba[0] = uniforms[0];
-		rgba[1] = uniforms[1];
-		rgba[2] = uniforms[2];
-		rgba[3] = uniforms[3];
-		uniformsSet = true;
-	} else {
-		uniformsSet = false;
+		if (colors.Color1[0] != -99999.0)
+			rgba[0] = colors.Color1[0];
+		if (colors.Color1[1] != -99999.0)
+			rgba[1] = colors.Color1[1];
+		if (colors.Color1[2] != -99999.0)
+			rgba[2] = colors.Color1[2];
+		if (colors.Color1[3] != -99999.0)
+			rgba[3] = colors.Color1[3];
 	}
 }
 

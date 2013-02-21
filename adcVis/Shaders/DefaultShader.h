@@ -16,7 +16,7 @@ class DefaultShader : public GLShader
 	public:
 
 		DefaultShader();
-		void SetUniforms(int size, float *uniforms);
+		void SetUniforms(UniformColors colors, UniformValues values);
 
 	protected:
 
