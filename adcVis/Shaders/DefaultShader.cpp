@@ -52,18 +52,18 @@ DefaultShader::DefaultShader()
  * @param colors The UniformColors struct with updated values
  * @param values Ignored
  */
-void DefaultShader::SetUniforms(UniformColors colors, UniformValues values)
+void DefaultShader::SetUniforms(UniformColors *colors, UniformValues *values)
 {
 	if (colors != 0)
 	{
-		if (colors.Color1[0] != -99999.0)
-			rgba[0] = colors.Color1[0];
-		if (colors.Color1[1] != -99999.0)
-			rgba[1] = colors.Color1[1];
-		if (colors.Color1[2] != -99999.0)
-			rgba[2] = colors.Color1[2];
-		if (colors.Color1[3] != -99999.0)
-			rgba[3] = colors.Color1[3];
+		if (colors->Color1[0] != -99999.0)
+			rgba[0] = colors->Color1[0];
+		if (colors->Color1[1] != -99999.0)
+			rgba[1] = colors->Color1[1];
+		if (colors->Color1[2] != -99999.0)
+			rgba[2] = colors->Color1[2];
+		if (colors->Color1[3] != -99999.0)
+			rgba[3] = colors->Color1[3];
 	}
 }
 

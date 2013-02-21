@@ -53,7 +53,7 @@ class GLShader
 		 * @param values A UniformValues struct with updated generic values
 		 *
 		 */
-		virtual void SetUniforms(UniformColors colors, UniformValues values) = 0;
+		virtual void SetUniforms(UniformColors *colors, UniformValues *values) = 0;
 
 	protected:
 
