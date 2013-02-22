@@ -4,7 +4,7 @@
 #include "adcData.h"
 #include "../Shaders/GLShader.h"
 
-#include <map>
+#include <vector>
 
 /**
  * @brief An abstract class that defines the generic behavior of an ADCIRC layer
@@ -26,18 +26,18 @@ class Layer
 		unsigned int	GetNumLayers();
 		float		GetMinZ();
 		float		GetMaxZ();
-		Node		*GetNode(unsigned int nodeNumber);
-		Element		*GetElement(unsigned int elementNumber);
+		Node*		GetNode(unsigned int nodeNumber);
+		Element*	GetElement(unsigned int elementNumber);
 
 	protected:
 
 		// Generic Variables
-		std::map<unsigned int, Node>	nodes;			/**< Map of <Node number, Node> */
-		std::map<unsigned int, Element>	elements;		/**< Map of <Element number, Element */
-		unsigned int			numNodes;		/**< The number of nodes in the Layer */
-		unsigned int			numElements;		/**< The number of elements in the Layer */
-		float				minZ;			/**< The elevation of the lowest Node */
-		float				maxZ;			/**< The elevation of the highest Node */
+		std::vector<Node>	nodes;			/**< List of all Nodes in the Layer */
+		std::vector<Element>	elements;		/**< List of all Elements in the Layer */
+		unsigned int		numNodes;		/**< The number of Nodes in the Layer as specified in fort.14 */
+		unsigned int		numElements;		/**< The number of Elements in the Layer as specified in fort.14 */
+		float			minZ;			/**< The elevation of the lowest Node */
+		float			maxZ;			/**< The elevation of the highest Node */
 
 		// Flags
 		bool	glLoaded;

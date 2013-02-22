@@ -74,3 +74,27 @@ float Layer::GetMaxZ()
 {
 	return maxZ;
 }
+
+
+/**
+ * @brief Layer::GetNode returns a pointer to the requested Node.
+ * @param nodeNumber The node number as defined in the fort.14 file.
+ * @return A pointer to the Node object if the node number is valid.
+ * @return 0 otherwise.
+ */
+Node* Layer::GetNode(unsigned int nodeNumber)
+{
+
+}
+
+
+/**
+ * @brief Layer::GetElement returns a pointer to the requested Element.
+ * @param elementNumber The element number as defined in the fort.14 file.
+ * @return A pointer to the Element object if the element number is valid.
+ * @return 0 otherwise.
+ */
+Element* Layer::GetElement(unsigned int elementNumber)
+{
+
+}
