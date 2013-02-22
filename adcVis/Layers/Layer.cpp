@@ -9,6 +9,9 @@ Layer::Layer()
 {
 	layerCount++;
 	layerID = layerCount;
+
+	minZ = 0.0;
+	maxZ = 0.0;
 }
 
 
@@ -48,4 +51,26 @@ unsigned int Layer::GetID()
 unsigned int Layer::GetNumLayers()
 {
 	return layerCount;
+}
+
+
+/**
+  * @brief Layer::GetMinZ returns the z-coordinate of the lowest Node
+  *
+  * @return The minimum z-value in Layer::nodes
+  */
+float Layer::GetMinZ()
+{
+	return minZ;
+}
+
+
+/**
+  * @brief Layer::GetMaxZ() returns the z-coordinate of the highest Node
+  *
+  * @return The maximum z-value in Layer::nodes
+  */
+float Layer::GetMaxZ()
+{
+	return maxZ;
 }
