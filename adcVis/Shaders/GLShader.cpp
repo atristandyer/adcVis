@@ -7,7 +7,6 @@ GLShader::GLShader()
 {
 	programID = 0;
 	camera = 0;
-	numUniforms = 0;
 
 	vertexShaderSource = "";
 	fragmentShaderSource = "";

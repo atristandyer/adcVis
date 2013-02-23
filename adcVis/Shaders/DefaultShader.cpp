@@ -4,8 +4,7 @@
 /**
  * @brief DefaultShader::DefaultShader Constructor initializes the color to white
  *
- * The constructor initializes the color to white (rgba = {1.0, 1.0, 1.0, 1.0}),
- * sets the number of shader uniforms available to the user to 4,  hard-codes
+ * The constructor initializes the color to white (rgba = {1.0, 1.0, 1.0, 1.0}), hard-codes
  * the vertex and fragment shader source, and finally attempts to compile the
  * shader program.
  *
@@ -16,7 +15,6 @@ DefaultShader::DefaultShader()
 	rgba[1] = 1.0;
 	rgba[2] = 1.0;
 	rgba[3] = 1.0;
-	numUniforms = 4;
 
 	uniformsSet = true;
 

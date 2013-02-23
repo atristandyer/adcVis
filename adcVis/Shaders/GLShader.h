@@ -60,7 +60,6 @@ class GLShader
 		// Variables common to all shaders
 		GLuint		programID;		/**< Integer reference to the compiled program in the OpenGL context */
 		GLCamera	*camera;		/**< Pointer to the camera object that is used to retrieve the Model-View-Projection Matrix */
-		int		numUniforms;		/**< The number of shader uniforms accessible by the user */
 
 		// Source text
 		std::string	vertexShaderSource;	/**< Full source code for the vertex shader */
