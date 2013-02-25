@@ -314,8 +314,95 @@ void Layer::SetOffsetValue(GLfloat newOffset)
  * Buffer Object and Element data is put into an Index Buffer Object, the OpenGL state
  * is saved in the VAO state.
  *
+ * The default behavior is to create a new vertex array object if it has not been created yet
+ * and to load all data from Layer::nodes and Layer::elements to the OpenGL context. Data is
+ * passed in with the usage flag GL_STATIC_DRAW, so if your Layer will be frequently updating
+ * data (eg. water elevation data), you should override this function and use the appropriate
+ * flag.
+ *
+ * Once data has been loaded to the OpenGL context, the Layer::glLoaded flag is set to true.
+ *
  */
 void Layer::LoadDataToGPU()
 {
 
+	// Dev Note: Probably smart to check buffer sizes against video card memory size
+	// because very large domains could be too large for smaller cards
+
+	if (!glLoaded || vao == 0)
+	{
+		// Create the new VAO, VBO, and IBO
+		glGenVertexArrays(1, &vaoID);
+		glGenBuffers(1, &vboID);
+		glGenBuffers(1, &iboID);
+
+		// Bind the VAO so that all subsequent OpenGL binding calls are
+		// saved into this VAO's state.
+		glBindVertexArray(vaoID);
+
+		// Load vertex data to the OpenGL context
+		const size_t VertexBufferSize = 4*sizeof(GLfloat)*nodes.size();
+		glBindBuffer(GL_ARRAY_BUFFER, vboID);
+		glEnableVertexAttribArray(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
+		glBufferData(GL_ARRAY_BUFFER, VertexBufferSize, NULL, GL_STATIC_DRAW);
+		GLfloat *vdataPtr = (GLfloat *)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		if (vdataPtr)
+		{
+			for (unsigned int i=0; i<nodes.size(); i++)
+			{
+				vdataPtr[4*i+0] = (GLfloat)nodes[i].x;
+				vdataPtr[4*i+1] = (GLfloat)nodes[i].y;
+				vdataPtr[4*i+2] = (GLfloat)nodes[i].z;
+				vdataPtr[4*i+3] = (GLfloat)1.0;
+			}
+
+			if (glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE)
+			{
+				DEBUG("Error unmapping vertex buffer object in layer %i", layerID);
+				return;
+			}
+
+		} else {
+			DEBUG("Error mapping to vertex buffer object in layer %i", layerID);
+			return;
+		}
+
+		// Load index data to the OpenGL context
+		const size_t IndexBufferSize = 3*sizeof(GLuint)*elements.size();
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, IndexBufferSize, NULL, GL_STATIC_DRAW);
+		GLuint *idataPtr = (GLuint *)glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
+		if (idataPtr)
+		{
+			for (int i=0; i<elements.size(); i++)
+			{
+				idataPtr[3*i+0] = (GLuint)elements[i].n1-1;
+				idataPtr[3*i+1] = (GLuint)elements[i].n2-1;
+				idataPtr[3*i+2] = (GLuint)elements[i].n3-1;
+			}
+
+			if (glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER) == GL_FALSE)
+			{
+				DEBUG("Error unmapping index buffer object in layer %i", layerID);
+				return;
+			}
+		} else {
+			DEBUG("Error mapping to index buffer object in layer %i", layerID);
+			return;
+		}
+
+		// Unbind the VAO to finish saving it's state
+		glBindVertexArray(0);
+
+		// Do one final check for OpenGL errors
+		GLenum errorCheck = glGetError();
+		if (errorCheck == GL_NO_ERROR)
+		{
+			glLoaded = true;
+		} else {
+			glLoaded = false;
+			DEBUG("OpenGL Error found after loading data from layer %i", layerID);
+		}
+
+	}
 }
