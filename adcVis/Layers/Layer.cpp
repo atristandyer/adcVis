@@ -38,10 +38,29 @@ Layer::Layer()
  * both shaders have been set before binding the Layer's vertex array object and
  * drawing the Layer.
  *
+ * If a subclassed Layer needs to draw more (eg. selected nodes or elements), simply
+ * override this function, call Layer::Draw(), and perform drawing operations. This function
+ * does not unbind the vertex array after draw operations.
+ *
  */
 void Layer::Draw()
 {
-	// Note to self: Get this code from old adcVis, it should work for all Layers
+	if (glLoaded && outlineShader != 0 && fillShader != 0 && vaoID != 0)
+	{
+		glBindVertexArray(vaoID);
+
+		// Draw Fill
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glPolygonOffset(offsetValue + 1, offsetValue + 1);
+		if (fillShader->Use() == 0)
+			glDrawElements(GL_TRIANGLES, numElements*3, GL_UNSIGNED_INT, (GLvoid*)0);
+
+		// Draw Outline
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glPolygonOffset(offsetValue, offsetValue);
+		if (outlineShader->Use() == 0)
+			glDrawElements(GL_TRIANGLES, numElements*3, GL_UNSIGNED_INT, (GLvoid*)0);
+	}
 }
 
 

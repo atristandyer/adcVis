@@ -9,7 +9,16 @@
 /**
  * @brief A generic class that defines the behavior of an ADCIRC layer
  *
- *
+ * This class is meant to provide the basic functionality of a typical ADCIRC layer. Basic
+ * OpenGL functionality of provided, but if you need to draw anything other than outline
+ * and fill, you must provide that functionality in a subclass by overriding the
+ * appropriate functions. You will also need to provide file reading functionality in a
+ * subclass in order to get data into the Layer. Typical steps to creating and drawing a
+ * Layer are:
+ * - Set file locations and read data into appropriate vectors. Keep track of min/max values if needed.
+ * - Load data to GPU.
+ * - Set all appropriate shaders.
+ * - Draw the Layer by calling Layer::Draw()
  *
  */
 class Layer
