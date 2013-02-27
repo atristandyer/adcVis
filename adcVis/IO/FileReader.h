@@ -22,7 +22,9 @@ class FileReader
 
 		FileReader();
 
+		static int ReadFort14(std::string fileLoc, std::vector<Node> *nodes, std::vector<Element> *elements);
 		static int ReadFort14(std::string fileLoc, std::vector<Node> *nodes, std::vector<Element> *elements, unsigned int *numNodes, unsigned int *numElements);
+		static int ReadFort14(std::string fileLoc, std::vector<Node> *nodes, std::vector<Element> *elements, unsigned int *numNodes, unsigned int *numElements, float *minX, float *maxX, float *minY, float *maxY, float *minZ, float *maxZ);
 };
 
 #endif // FILEREADER_H
