@@ -2,7 +2,7 @@
 
 
 /**
- * @brief DefaultShader::DefaultShader Constructor initializes the color to white
+ * @brief Constructor initializes the color to white
  *
  * The constructor initializes the color to white (rgba = {1.0, 1.0, 1.0, 1.0}), hard-codes
  * the vertex and fragment shader source, and finally attempts to compile the
@@ -40,7 +40,7 @@ DefaultShader::DefaultShader()
 
 
 /**
- * @brief DefaultShader::SetUniforms Sets the color to be used by the shader.
+ * @brief Sets the color to be used by the shader.
  *
  * This function is called by the user in order to change the color used by the shader
  * in all subsequent OpenGL drawing operations.
@@ -67,7 +67,7 @@ void DefaultShader::SetUniforms(UniformColors *colors, UniformValues *values)
 
 
 /**
- * @brief DefaultShader::CompileShader Attempts to compile and link the shader program.
+ * @brief Attempts to compile and link the shader program.
  *
  * This shader only requires a vertex shader and a fragment shader. CompileShader attempts
  * to compile and link the shader program from the hard-coded source. Successful compilation
@@ -100,7 +100,7 @@ void DefaultShader::CompileShader()
 
 
 /**
- * @brief DefaultShader::UpdateUniforms Transfers all shader uniform values to the
+ * @brief Transfers all shader uniform values to the
  * shader object in the OpenGL context.
  *
  * This function transers the Model-View-Matrix and the color to the shader object

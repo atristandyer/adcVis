@@ -32,7 +32,7 @@ Layer::Layer()
 
 
 /**
- * @brief Layer::Draw Used to draw the layer in the OpenGL context.
+ * @brief Used to draw the layer in the OpenGL context.
  *
  * This function first checks that data has been loaded to the OpenGL context and that
  * both shaders have been set before binding the Layer's vertex array object and
@@ -65,7 +65,7 @@ void Layer::Draw()
 
 
 /**
- * @brief Layer::UpdateTimestep Used to inform the Layer object that the current timestep has
+ * @brief Used to inform the Layer object that the current timestep has
  * changed.
  *
  * This function is meant to be overridden by subclasses of Layer that need to know the
@@ -80,7 +80,7 @@ void Layer::UpdateTimestep(int timestep)
 
 
 /**
- * @brief Layer::GetID Returns the unique ID associated with the Layer object.
+ * @brief Returns the unique ID associated with the Layer object.
  * @return The unique ID associated with the Layer object.
  */
 unsigned int Layer::GetID()
@@ -90,7 +90,7 @@ unsigned int Layer::GetID()
 
 
 /**
- * @brief Layer::GetNumLayers Returns the total number of Layer objects that have
+ * @brief Returns the total number of Layer objects that have
  * been created.
  * @return The total number of Layer objects that have been created.
  */
@@ -101,7 +101,7 @@ unsigned int Layer::GetNumLayers()
 
 
 /**
- * @brief Layer::GetMinX Returns the smallest x-coordinate.
+ * @brief Returns the smallest x-coordinate.
  * @return The minimum x-coordinate in Layer::nodes
  */
 float Layer::GetMinX()
@@ -111,7 +111,7 @@ float Layer::GetMinX()
 
 
 /**
- * @brief Layer::GetMaxX Returns the largest x-coordinate.
+ * @brief Returns the largest x-coordinate.
  * @return The maximum x-coordinate in Layer::nodes
  */
 float Layer::GetMaxX()
@@ -121,7 +121,7 @@ float Layer::GetMaxX()
 
 
 /**
- * @brief Layer::GetMinY Returns the smallest y-coordinate.
+ * @brief Returns the smallest y-coordinate.
  * @return The minimum y-coordinate in Layer::nodes
  */
 float Layer::GetMinY()
@@ -131,7 +131,7 @@ float Layer::GetMinY()
 
 
 /**
- * @brief Layer::GetMaxY Returns the largest y-coordinate.
+ * @brief Returns the largest y-coordinate.
  * @return The maximum y-coordinate in Layer::nodes
  */
 float Layer::GetMaxY()
@@ -141,7 +141,7 @@ float Layer::GetMaxY()
 
 
 /**
-  * @brief Layer::GetMinZ Returns the smallest z-coordinate.
+  * @brief Returns the smallest z-coordinate.
   * @return The minimum z-coordinate in Layer::nodes
   */
 float Layer::GetMinZ()
@@ -151,7 +151,7 @@ float Layer::GetMinZ()
 
 
 /**
-  * @brief Layer::GetMaxZ() Returns the largest z-coordinate.
+  * @brief Returns the largest z-coordinate.
   *
   * @return The maximum z-coordinate in Layer::nodes
   */
@@ -162,7 +162,7 @@ float Layer::GetMaxZ()
 
 
 /**
- * @brief Layer::GetNode Returns a pointer to the requested Node.
+ * @brief Returns a pointer to the requested Node.
  *
  * This function is meant to be implemented by a subclass of Layer. Specifically,
  * Layers that are modeling terrain should typically be able to return specific
@@ -186,7 +186,7 @@ Node* Layer::GetNode(unsigned int nodeNumber)
 
 
 /**
- * @brief Layer::GetNode Returns a pointer to the requested Node.
+ * @brief Returns a pointer to the requested Node.
  *
  * This function is meant to be implemented by a subclass of Layer. Specifically,
  * Layers that are modeling terrain should typically be able to return specific
@@ -211,7 +211,7 @@ Node* Layer::GetNode(float x, float y)
 
 
 /**
- * @brief Layer::GetElement Returns a pointer to the requested Element.
+ * @brief Returns a pointer to the requested Element.
  *
  * This function is meant to be implemented by a subclass of Layer. Specifically,
  * Layers that are modeling terrain should typically be able to return specific
@@ -235,7 +235,7 @@ Element* Layer::GetElement(unsigned int elementNumber)
 
 
 /**
- * @brief Layer::GetElement Returns a pointer to the requested Element.
+ * @brief Returns a pointer to the requested Element.
  *
  * This function is meant to be implemented by a subclass of Layer. Specifically,
  * Layers that are modeling terrain should typically be able to return specific
@@ -260,7 +260,7 @@ Element* Layer::GetElement(float x, float y)
 
 
 /**
- * @brief Layer::SetOutlineShader Sets the outline shader.
+ * @brief Sets the outline shader.
  * @param newShader Pointer to the outline shader to be used when drawing.
  */
 void Layer::SetOutlineShader(GLShader *newShader)
@@ -270,7 +270,7 @@ void Layer::SetOutlineShader(GLShader *newShader)
 
 
 /**
- * @brief Layer::SetFillShader Sets the fill shader.
+ * @brief Sets the fill shader.
  * @param newShader Pointer to the fill shader to be used when drawing.
  */
 void Layer::SetFillShader(GLShader *newShader)
@@ -280,7 +280,7 @@ void Layer::SetFillShader(GLShader *newShader)
 
 
 /**
- * @brief Layer::SetOffsetValue Sets the offset that will be used during drawing operations.
+ * @brief Sets the offset that will be used during drawing operations.
  *
  * The offset value is used to prevent z-fighting when drawing multiple layers in the same
  * OpenGL context. The glPolygonOffset function is used to slightly modify the z-values of
@@ -300,7 +300,7 @@ void Layer::SetOffsetValue(GLfloat newOffset)
 
 
 /**
- * @brief LoadDataToGPU Transfers node and element data to the OpenGL context.
+ * @brief Transfers node and element data to the OpenGL context.
  *
  * This function is used to pass Node and Element data to the OpenGL context in order to
  * be rendered. Node location data is densely packed in order:
@@ -329,7 +329,7 @@ void Layer::LoadDataToGPU()
 	// Dev Note: Probably smart to check buffer sizes against video card memory size
 	// because very large domains could be too large for smaller cards
 
-	if (!glLoaded || vao == 0)
+	if (!glLoaded || vaoID == 0)
 	{
 		// Create the new VAO, VBO, and IBO
 		glGenVertexArrays(1, &vaoID);
@@ -343,7 +343,8 @@ void Layer::LoadDataToGPU()
 		// Load vertex data to the OpenGL context
 		const size_t VertexBufferSize = 4*sizeof(GLfloat)*nodes.size();
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		glEnableVertexAttribArray(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
 		glBufferData(GL_ARRAY_BUFFER, VertexBufferSize, NULL, GL_STATIC_DRAW);
 		GLfloat *vdataPtr = (GLfloat *)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		if (vdataPtr)
@@ -374,7 +375,7 @@ void Layer::LoadDataToGPU()
 		GLuint *idataPtr = (GLuint *)glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
 		if (idataPtr)
 		{
-			for (int i=0; i<elements.size(); i++)
+			for (unsigned int i=0; i<elements.size(); i++)
 			{
 				idataPtr[3*i+0] = (GLuint)elements[i].n1-1;
 				idataPtr[3*i+1] = (GLuint)elements[i].n2-1;

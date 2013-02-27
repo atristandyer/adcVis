@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     OpenGL/glew.c \
     Shaders/DefaultShader.cpp \
     Layers/Layer.cpp \
-    Layers/TerrainLayer.cpp
+    Layers/TerrainLayer.cpp \
+    IO/FileReader.cpp
 
 HEADERS  += MainWindow.h \
     Shaders/GLShader.h \
@@ -33,7 +34,8 @@ HEADERS  += MainWindow.h \
     OpenGL/glew.h \
     Shaders/DefaultShader.h \
     Layers/Layer.h \
-    Layers/TerrainLayer.h
+    Layers/TerrainLayer.h \
+    IO/FileReader.h
 
 FORMS    += MainWindow.ui
 

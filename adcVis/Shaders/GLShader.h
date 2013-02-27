@@ -32,7 +32,7 @@ class GLShader
 
 
 		/**
-		 * @brief GLShader::SetUniforms Sets all of the uniform values of a subclassed GLShader
+		 * @brief Sets all of the uniform values of a subclassed GLShader
 		 *
 		 * This function takes a UniformColors struct and UniformValues struct, which it
 		 * uses to update all of the variables that are passed to the shader program
@@ -74,7 +74,7 @@ class GLShader
 		GLuint	CompileShaderPart(std::string source, GLenum shaderType);
 
 		/**
-		 * @brief GLShader::CompileShader Compiles the full shader program
+		 * @brief Compiles the full shader program
 		 *
 		 * This function, defined in a subclass of GLShader, compiles all parts of the shader
 		 * program for use in the OpenGL context. Upon completion of compiling/linking, the
@@ -84,7 +84,7 @@ class GLShader
 		virtual void	CompileShader() = 0;
 
 		/**
-		 * @brief GLShader::UpdateUniforms Updates the shader uniforms in the OpenGL context
+		 * @brief Updates the shader uniforms in the OpenGL context
 		 *
 		 * This function, defined in a subclass of GLShader, transfers all appropriate values
 		 * from the shader object to the shader program in the OpenGL context using the

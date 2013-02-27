@@ -1,7 +1,7 @@
 #include "GLShader.h"
 
 /**
- * @brief GLShader::GLShader Constructor initializes all variables to default values
+ * @brief Constructor initializes all variables to default values
  */
 GLShader::GLShader()
 {
@@ -18,7 +18,7 @@ GLShader::GLShader()
 
 
 /**
- * @brief GLShader::~GLShader Deconstructor that deletes the shader program from the OpenGL context
+ * @brief Deconstructor that deletes the shader program from the OpenGL context
  */
 GLShader::~GLShader()
 {
@@ -31,7 +31,7 @@ GLShader::~GLShader()
 
 
 /**
- * @brief GLShader::Use Tells the OpenGL context to use this shader program
+ * @brief Tells the OpenGL context to use this shader program
  *
  * Tells the OpenGL context to use this shader program for all subsequent
  * drawing operations.
@@ -60,7 +60,7 @@ int GLShader::Use()
 
 
 /**
- * @brief GLShader::SetCamera Sets the camera to be used for subsequent use of this shader
+ * @brief Sets the camera to be used for subsequent use of this shader
  * @param newCam A pointer to the new Camera to be used
  *
  * Sets the camera to be used to subsequent use of this shader. The shader program uses the
@@ -83,7 +83,7 @@ void GLShader::SetCamera(GLCamera *newCam)
 
 
 /**
- * @brief GLShader::CompileShaderPart
+ * @brief Compiles individual parts of a shader program.
  *
  * This function will be used by the virtual CompileShader() function to compile the various shader
  * programs (eg. vertex shader, fragment shader, etc.) in the OpenGL context.
