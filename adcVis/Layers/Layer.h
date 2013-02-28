@@ -26,8 +26,8 @@ class Layer
 	public:
 		Layer();
 
-		void	Draw();
-		void	UpdateTimestep(int timestep);
+		virtual void	Draw();
+		virtual void	UpdateTimestep(int timestep);
 
 		// Getter Methods
 		unsigned int	GetID();
@@ -38,10 +38,10 @@ class Layer
 		float		GetMaxY();
 		float		GetMinZ();
 		float		GetMaxZ();
-		Node*		GetNode(unsigned int nodeNumber);
-		Node*		GetNode(float x, float y);
-		Element*	GetElement(unsigned int elementNumber);
-		Element*	GetElement(float x, float y);
+		virtual Node*		GetNode(unsigned int nodeNumber);
+		virtual Node*		GetNode(float x, float y);
+		virtual Element*	GetElement(unsigned int elementNumber);
+		virtual Element*	GetElement(float x, float y);
 
 		// Setter Methods
 		void		SetOutlineShader(GLShader* newShader);
@@ -76,7 +76,7 @@ class Layer
 		static GLfloat	outlineOffset;		/**< The value used to prevent z-fighting between the fill and outline */
 
 		// Protected Functions
-		void	LoadDataToGPU();
+		virtual void	LoadDataToGPU();
 
 
 	private:

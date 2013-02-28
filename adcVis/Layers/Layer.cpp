@@ -75,6 +75,7 @@ void Layer::Draw()
  */
 void Layer::UpdateTimestep(int timestep)
 {
+	(void)timestep;
 	return;
 }
 
@@ -181,6 +182,7 @@ float Layer::GetMaxZ()
  */
 Node* Layer::GetNode(unsigned int nodeNumber)
 {
+	(void)nodeNumber;
 	return 0;
 }
 
@@ -206,6 +208,8 @@ Node* Layer::GetNode(unsigned int nodeNumber)
  */
 Node* Layer::GetNode(float x, float y)
 {
+	(void)x;
+	(void)y;
 	return 0;
 }
 
@@ -230,6 +234,7 @@ Node* Layer::GetNode(float x, float y)
  */
 Element* Layer::GetElement(unsigned int elementNumber)
 {
+	(void)elementNumber;
 	return 0;
 }
 
@@ -255,6 +260,8 @@ Element* Layer::GetElement(unsigned int elementNumber)
  */
 Element* Layer::GetElement(float x, float y)
 {
+	(void)x;
+	(void)y;
 	return 0;
 }
 
