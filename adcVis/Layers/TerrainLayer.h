@@ -2,6 +2,7 @@
 #define TERRAINLAYER_H
 
 #include "Layer.h"
+#include "../Shaders/DefaultShader.h"
 #include "../IO/FileReader.h"
 #include <string>
 
@@ -9,6 +10,7 @@ class TerrainLayer : public Layer
 {
 	public:
 		TerrainLayer();
+		~TerrainLayer();
 
 		virtual void	Draw();
 
@@ -23,12 +25,16 @@ class TerrainLayer : public Layer
 
 		// Setter Methods
 		void	SetFort14Location();
+		void	SetPickingColor(float r, float g, float b, float a);
 
 
 	protected:
 
 		// Terrain Specific Variables
 		std::string	fort14Location;	/**< The fort.14 file location */
+
+		// Terrain Specific OpenGL Variables
+		DefaultShader	*pickingShader; /**< The fill shader used to draw the selected node/element */
 
 		// Flags
 		bool	flipZValue;		/**< Flag that determines if the z-value is multiplied by -1.0 before being loaded to the GPU */
