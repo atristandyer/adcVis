@@ -7,6 +7,9 @@ TerrainLayer::TerrainLayer()
 	fileLoaded = false;
 
 	pickingShader = new DefaultShader();
+
+	selectedNode = 0;
+	selectedElement = 0;
 }
 
 
@@ -108,54 +111,86 @@ Node* TerrainLayer::GetNode(float x, float y)
 
 
 /**
- * @brief TerrainLayer::GetElement
- * @param elementNumber
- * @return
+ * @brief Returns a pointer to the Element with the corresponding element number
+ *
+ * This function provides access to Elements in the element list through element
+ * number. The element is first looked up on the assumption that the Element
+ * list is ordered, but if the list is not ordered, a linear lookup on the
+ * Element list is performed until the correct Element is found.
+ *
+ * @param elementNumber The element number as defined in the fort.14 file
+ * @return A pointer to the Element with the corresponding element number
+ * @return 0 if the Element is not in the element list
  */
 Element* TerrainLayer::GetElement(unsigned int elementNumber)
 {
-
+	if (elements.size() > 0)
+	{
+		if (elementNumber <= elements.size() && elementNumber == elements[elementNumber-1].elementNumber)
+			return &elements[elementNumber-1];
+		else
+		{
+			for (unsigned int i=0; i<elements.size(); i++)
+				if (elements[i].elementNumber == elementNumber)
+					return &elements[i];
+		}
+	}
+	return 0;
 }
 
 
 /**
- * @brief TerrainLayer::GetElement
- * @param x
- * @param y
- * @return
+ * @brief Returns a pointer to the Element closest to the provided x-y coordinates
+ *
+ * This function provides access to Elements in the element list by finding the Element
+ * closest to the provided x-y coordinates. If the x-y coordinates are inside of an
+ * Element, that Element will be returned. If the coordinates do not fall inside of
+ * any Element in the list, 0 is returned.
+ *
+ * @param x The x-coordinate
+ * @param y The y-coordinate
+ * @return A pointer to the Element that contains the provided x-y coordinates
+ * @return 0 if the element list is empty or if the point is not inside of any Element
  */
 Element* TerrainLayer::GetElement(float x, float y)
 {
-
+	return 0;
 }
 
 
 /**
- * @brief TerrainLayer::GetSelectedNode
- * @return
+ * @brief Returns the currently selected Node
+ * @return The currently selected Node
  */
 unsigned int TerrainLayer::GetSelectedNode()
 {
-
+	return selectedNode;
 }
 
 
 /**
- * @brief TerrainLayer::GetSelectedElement
- * @return
+ * @brief Returns the currently selected Element
+ * @return The currently selected Element
  */
 unsigned int TerrainLayer::GetSelectedElement()
 {
-
+	return selectedElement;
 }
 
 
 /**
- * @brief TerrainLayer::SetFort14Location
+ * @brief Sets the fort.14 file location
+ *
+ * This function is used to set the location of the fort.14 file that will be used
+ * to define the terrain in the TerrainLayer object. The fort.14 file is read
+ * when this function is called.
+ *
  */
-void TerrainLayer::SetFort14Location()
+void TerrainLayer::SetFort14Location(std::string newLocation)
 {
+	fort14Location = newLocation;
 
+	// Read the fort.14 file here
 }
 
 
