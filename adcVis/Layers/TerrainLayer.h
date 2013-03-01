@@ -24,7 +24,7 @@ class TerrainLayer : public Layer
 		unsigned int		GetSelectedElement();
 
 		// Setter Methods
-		void	SetFort14Location();
+		void	SetFort14Location(std::string newLocation);
 		void	SetPickingColor(float r, float g, float b, float a);
 
 
