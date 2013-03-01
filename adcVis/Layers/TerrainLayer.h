@@ -6,6 +6,15 @@
 #include "../IO/FileReader.h"
 #include <string>
 
+
+/**
+ * @brief A subclass of Layer that defines a drawable terrain layer based on fort.14 data
+ *
+ * This subclass of Layer provides a framework for reading the node and element data from
+ * a fort.14 file and displaying the defined mesh in an OpenGL context. It also provides
+ * support for Node and Element picking.
+ *
+ */
 class TerrainLayer : public Layer
 {
 	public:

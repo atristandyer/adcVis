@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     Shaders/DefaultShader.cpp \
     Layers/Layer.cpp \
     Layers/TerrainLayer.cpp \
-    IO/FileReader.cpp
+    IO/FileReader.cpp \
+    Layers/Quadtree.cpp
 
 HEADERS  += MainWindow.h \
     Shaders/GLShader.h \
@@ -35,7 +36,8 @@ HEADERS  += MainWindow.h \
     Shaders/DefaultShader.h \
     Layers/Layer.h \
     Layers/TerrainLayer.h \
-    IO/FileReader.h
+    IO/FileReader.h \
+    Layers/Quadtree.h
 
 FORMS    += MainWindow.ui
 
