@@ -42,6 +42,8 @@ class Layer
 		virtual Node*		GetNode(float x, float y);
 		virtual Element*	GetElement(unsigned int elementNumber);
 		virtual Element*	GetElement(float x, float y);
+		virtual Node*		GetSelectedNode();
+		virtual Element*	GetSelectedElement();
 
 		// Setter Methods
 		void		SetOutlineShader(GLShader* newShader);
@@ -62,6 +64,10 @@ class Layer
 		float			maxY;		/**< The maximum y-coordinate out of all Nodes */
 		float			minZ;		/**< The elevation of the lowest Node */
 		float			maxZ;		/**< The elevation of the highest Node */
+
+		// Generic Picking Variables
+		Node*		selectedNode;		/**< The currently selected Node */
+		Element*	selectedElement;	/**< The currently selected Element */
 
 		// Flags
 		bool	glLoaded;			/**< Flag shows if the data has been loaded to the OpenGL context */

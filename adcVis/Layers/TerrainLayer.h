@@ -2,6 +2,7 @@
 #define TERRAINLAYER_H
 
 #include "Layer.h"
+#include "Quadtree.h"
 #include "../Shaders/DefaultShader.h"
 #include "../IO/FileReader.h"
 #include <string>
@@ -13,6 +14,9 @@
  * This subclass of Layer provides a framework for reading the node and element data from
  * a fort.14 file and displaying the defined mesh in an OpenGL context. It also provides
  * support for Node and Element picking.
+ *
+ * TODO: Find the number of nodes where quadtree becomes more efficient than linear search
+ * and only use quadtree if the number of nodes in the layer is higher than that number.
  *
  */
 class TerrainLayer : public Layer
@@ -29,8 +33,6 @@ class TerrainLayer : public Layer
 		virtual Node*		GetNode(float x, float y);
 		virtual Element*	GetElement(unsigned int elementNumber);
 		virtual Element*	GetElement(float x, float y);
-		unsigned int		GetSelectedNode();
-		unsigned int		GetSelectedElement();
 
 		// Setter Methods
 		void	SetFort14Location(std::string newLocation);
@@ -51,8 +53,8 @@ class TerrainLayer : public Layer
 		bool	fileLoaded;		/**< Flag that shows if data has been successfully read from fort.14 */
 
 		// Picking variables
-		unsigned int	selectedNode;		/**< The currently selected Node */
-		unsigned int	selectedElement;	/**< The currently selected Element */
+		Quadtree*	quadtree;		/**< The quadtree used to find the Node closest to the clicked point */
+
 };
 
 #endif // TERRAINLAYER_H

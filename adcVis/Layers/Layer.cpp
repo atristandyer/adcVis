@@ -22,6 +22,9 @@ Layer::Layer()
 	minZ = 0.0;
 	maxZ = 0.0;
 
+	selectedNode = 0;
+	selectedElement = 0;
+
 	vaoID = 0;
 	vboID = 0;
 	iboID = 0;
@@ -263,6 +266,40 @@ Element* Layer::GetElement(float x, float y)
 	(void)x;
 	(void)y;
 	return 0;
+}
+
+
+/**
+ * @brief Returns a pointer to the currently selected Node.
+ *
+ * This function is meant to be used by subclasses that implement Node/Element
+ * picking. These subclasses should set the selectedNode variable to be a pointer
+ * to the currently selected Node. This function can then be used to access that
+ * pointer.
+ *
+ * @return A pointer to the currently selected Node
+ * @return 0 if there is no currently selected Node
+ */
+Node* Layer::GetSelectedNode()
+{
+	return selectedNode;
+}
+
+
+/**
+ * @brief Returns a pointer to the currently selected Element
+ *
+ * This function is meant to be used by subclass that implement Node/Element
+ * picking. These subclasses should set the selectedElement variable to be a
+ * pointer to the currently selected Element. This function can that be used to
+ * access that pointer.
+ *
+ * @return A pointer to the currently selected Element
+ * @return 0 if there is no currently selected Element
+ */
+Element* Layer::GetSelectedElement()
+{
+	return selectedElement;
 }
 
 

@@ -8,7 +8,7 @@ class GLCamera
 {
 	public:
 
-		Matrix MVPMatrix;
+		Matrix MVPMatrix;	/**< The Model-View-Projection Matrix */
 };
 
 #endif

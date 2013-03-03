@@ -7,15 +7,15 @@
 
 struct leaf
 {
-		float			bounds[4];
-		std::vector<Node*>	nodes;
+		float			bounds[4];	/**< Defines the x-y boundaries of the rectangular leaf */
+		std::vector<Node*>	nodes;		/**< A list of pointers to the Nodes in the leaf */
 };
 
 
 typedef struct branch {
-		float		bounds[4];
-		leaf		*leaves[4];
-		struct branch	*branches[4];
+		float		bounds[4];	/**< Defines the x-y boundaries of the rectangular branch */
+		leaf		*leaves[4];	/**< A holder for the four possible leaves in the branch */
+		struct branch	*branches[4];	/**< A holder for the four possible branches in the branch */
 } branch;
 
 
@@ -59,11 +59,11 @@ class Quadtree
 	protected:
 
 		// Data Variables
-		int			binSize;
-		std::vector<Node>	nodeList;
-		std::vector<branch*>	branchList;
-		std::vector<leaf*>	leafList;
-		branch*			root;
+		int			binSize;	/**< The maximum number of Nodes allowed in a leaf */
+		std::vector<Node>	nodeList;	/**< The list of all Nodes in the domain */
+		std::vector<branch*>	branchList;	/**< The list of all branches in the Quadtree */
+		std::vector<leaf*>	leafList;	/**< The list of all leaves in the Quadtree */
+		branch*			root;		/**< A pointer to the top of the Quadtree */
 
 		// Building functions
 		Node*	FindNode(float x, float y, branch *currBranch);

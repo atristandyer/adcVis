@@ -17,6 +17,8 @@ TerrainLayer::~TerrainLayer()
 {
 	if (pickingShader)
 		delete pickingShader;
+	if (quadtree)
+		delete quadtree;
 }
 
 
@@ -39,7 +41,7 @@ void TerrainLayer::Draw()
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 			glPolygonOffset(0, 0);
-			glDrawArrays(GL_POINTS, selectedNode-1, 1);
+			glDrawArrays(GL_POINTS, selectedNode->nodeNumber-1, 1);
 		}
 
 		// Draw selected element
@@ -47,7 +49,7 @@ void TerrainLayer::Draw()
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glPolygonOffset(0, 0);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (GLuint*)0+3*(selectedElement-1));
+			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (GLuint*)0+3*(selectedElement->elementNumber-1));
 		}
 	}
 }
@@ -99,13 +101,21 @@ Node* TerrainLayer::GetNode(unsigned int nodeNumber)
  * with the x-y coordinates closest to the provided x-y coordinates. A quick
  * lookup is possible by parsing the Quadtree used to map the Node data.
  *
+ * The TerrainLayer::selectedNode value is set to the Node that is found, and
+ * a point will be drawn over that Node using the TerrainLayer::pickingShader.
+ *
  * @param x The x-coordinate
  * @param y The y-coordinate
  * @return A pointer to the Node closest to the provided x-y coordinates
- * @return 0 if the Node list is empty
+ * @return 0 if the click was outside the bounds of the quadtree or if there is no data loaded
  */
 Node* TerrainLayer::GetNode(float x, float y)
 {
+	if (quadtree)
+	{
+		selectedNode = quadtree->FindNode(x, y);
+		return selectedNode;
+	}
 	return 0;
 }
 
@@ -155,26 +165,6 @@ Element* TerrainLayer::GetElement(unsigned int elementNumber)
 Element* TerrainLayer::GetElement(float x, float y)
 {
 	return 0;
-}
-
-
-/**
- * @brief Returns the currently selected Node
- * @return The currently selected Node
- */
-unsigned int TerrainLayer::GetSelectedNode()
-{
-	return selectedNode;
-}
-
-
-/**
- * @brief Returns the currently selected Element
- * @return The currently selected Element
- */
-unsigned int TerrainLayer::GetSelectedElement()
-{
-	return selectedElement;
 }
 
 
